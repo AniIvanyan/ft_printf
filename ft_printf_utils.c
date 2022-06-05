@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:18:15 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/05 22:31:05 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/05 23:41:42 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,15 @@ int	ft_putptr(unsigned long long ptr)
 	ft_putptr_hex(ptr);
 	return (count);
 }
+// for unsigned int
+void	ft_putnbr(unsigned int n)
+{
+	if (n < 10)
+		ft_putchar_fd(n + '0', 1);
+	else
+	{
+		ft_putnbr_fd(n / 10, 1);
+		ft_putchar_fd (n % 10 + '0', 1);
+	}	
+}
+
