@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:18:15 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/05 23:41:42 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/06 00:05:13 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,23 @@ void	ft_putnbr(unsigned int n)
 	}	
 }
 
+// for hexadecimal
+void	ft_puthex(unsigned int num, char specifier)
+{
+	if (num >= 16)
+	{
+		ft_puthex(num / 16, specifier);
+		ft_puthex(num % 16, specifier);
+	}
+	
+	else 
+	{
+		if (num <= 9)
+			ft_putchar_fd(num + 48, 1);
+		else 
+			if (specifier == 'x')
+				ft_putchar_fd(num + 87, 1);
+			if (specifier == 'X')
+				ft_putchar_fd(num + 55, 1);
+	}
+}
