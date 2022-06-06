@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:18:15 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/07 00:24:05 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/07 01:31:38 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ ssize_t	ft_putstr(char *s)
 	ssize_t	count;
 
 	count = 0;
+	if (!s)
+		return (ft_putstr("(null)"));
 	while (s[count])
 		write(1, &s[count++], 1);
 	return (count);

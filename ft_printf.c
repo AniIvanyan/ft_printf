@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:00:55 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/07 01:06:19 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/07 01:48:12 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_putptr(unsigned long long ptr)
 {
 	int	count;
 
+	if (!ptr)
+		return (ft_putstr("(nil)"));
 	count = write(1, "0x", 2);
 	count += ft_puthex(ptr, 'x', 0);
 	return (count);
