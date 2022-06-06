@@ -6,29 +6,46 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:00:55 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/06 20:03:56 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/07 00:19:51 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
-void	ft_check_format(va_list ap, char format)
+int	ft_putptr(unsigned long long ptr)
 {
+	int	count;
+
+	count = write(1, "0x", 2);
+	count += ft_puthex(ptr, 'x', 0);
+	return (count);
+}
+
+ssize_t	ft_putpct(void)
+{
+	return (write(1, "%", 1));
+}
+
+int	ft_check_format(va_list ap, char format)
+{
+	int	return_value;
+
+	return_value = 0;
 	if (format == 'c')
-		ft_putchar_fd(va_arg(ap, int), 1);
+		return_value += ft_putchar(va_arg(ap, int));
 	else if (format == 's')
-		ft_putstr_fd(va_arg(ap, char *), 1);
+		return_value += ft_putstr(va_arg(ap, char *));
 	else if (format == 'p')
-		ft_putptr(va_arg(ap, unsigned long long));
+		return_value += ft_putptr(va_arg(ap, unsigned long long));
 	else if (format == 'd' || format == 'i')
-		ft_putnbr_fd(va_arg(ap, int), 1);
+		return_value += ft_putnbr(va_arg(ap, int), 0);
 	else if (format == 'u')
-		ft_putnbr(va_arg(ap, unsigned int));
+		return_value += ft_putunnbr(va_arg(ap, unsigned int), 0);
 	else if (format == 'x' || format == 'X')
-		ft_puthex(va_arg(ap, unsigned int), format);
+		return_value += ft_puthex(va_arg(ap, unsigned int), format, 0);
 	else if (format == '%')
-		ft_putpct();
+		return_value += ft_putpct();
+	return (return_value);
 }
 
 int	ft_printf(const char *format, ...)
@@ -43,9 +60,9 @@ int	ft_printf(const char *format, ...)
 	while (format[i])
 	{
 		if (format[i] == '%')
-			ft_check_format(ap, format[++i]);
+			return_value += ft_check_format(ap, format[++i]);
 		else
-			ft_putchar_fd(format[i], 1);
+			return_value += ft_putchar(format[i]);
 		i++;
 	}
 	va_end(ap);

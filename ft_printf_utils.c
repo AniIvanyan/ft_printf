@@ -6,75 +6,77 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:18:15 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/06 00:16:57 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/07 00:17:15 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
-// for pointer printing
-void	ft_putptr_hex(unsigned long long int num)
+ssize_t	ft_putchar(char c)
 {
-	if (num >= 16)
-	{
-		ft_putptr_hex(num / 16);
-		ft_putptr_hex(num % 16);
-	}
-	else
-	{
-		if (num <= 9)
-			ft_putchar_fd(num + 48, 1);
-		else
-			ft_putchar_fd(num + 87, 1);
-	}
+	return (write(1, &c, 1));
 }
 
-int	ft_putptr(unsigned long long ptr)
+ssize_t	ft_putstr(char *s)
 {
-	int	count;
+	ssize_t	count;
 
-	count = write(1, "0x", 2);
-	ft_putptr_hex(ptr);
+	count = 0;
+	while (s[count])
+		write(1, &s[count++], 1);
 	return (count);
 }
 
-// for unsigned int
-void	ft_putnbr(unsigned int n)
+ssize_t	ft_putnbr(int n, ssize_t count)
 {
-	if (n < 10)
-		ft_putchar_fd(n + '0', 1);
+	long	num;
+
+	num = n;
+	if (num < 0)
+	{
+		num = -num;
+		count += ft_putchar('-');
+	}
+	if (num < 10)
+		count += ft_putchar(num + '0');
 	else
 	{
-		ft_putnbr_fd(n / 10, 1);
-		ft_putchar_fd (n % 10 + '0', 1);
-	}	
+		count += ft_putnbr(num / 10, 0);
+		count += ft_putchar(num % 10 + '0');
+	}
+	return (count);	
 }
 
-// for hexadecimal
-void	ft_puthex(unsigned int num, char specifier)
+ssize_t	ft_putunnbr(unsigned int n, ssize_t count)
+{
+	if (n < 10)
+		count += ft_putchar(n + '0');
+	else
+	{
+		count += ft_putunnbr(n / 10, 0);
+		count += ft_putchar(n % 10 + '0');
+	}
+	return (count);
+}
+
+ssize_t	ft_puthex(unsigned long long num, char specifier, ssize_t count)
 {
 	if (num >= 16)
 	{
-		ft_puthex(num / 16, specifier);
-		ft_puthex(num % 16, specifier);
+		count += ft_puthex(num / 16, specifier, 0);
+		count += ft_puthex(num % 16, specifier, 0);
 	}
 	else
 	{
 		if (num <= 9)
-			ft_putchar_fd(num + 48, 1);
+			count += ft_putchar(num + 48);
 		else
 		{
 			if (specifier == 'x')
-				ft_putchar_fd(num + 87, 1);
+				count += ft_putchar(num + 87);
 			if (specifier == 'X')
-				ft_putchar_fd(num + 55, 1);
+				count += ft_putchar(num + 55);
 		}
 	}
-}
-
-// for percent sign
-ssize_t	ft_putpct(void)
-{
-	return (write(1, "%", 1));
+	return (count);
 }
