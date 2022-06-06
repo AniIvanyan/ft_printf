@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:18:15 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/07 00:17:15 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/07 00:24:05 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ ssize_t	ft_putnbr(int n, ssize_t count)
 		count += ft_putnbr(num / 10, 0);
 		count += ft_putchar(num % 10 + '0');
 	}
-	return (count);	
+	return (count);
 }
 
 ssize_t	ft_putunnbr(unsigned int n, ssize_t count)
