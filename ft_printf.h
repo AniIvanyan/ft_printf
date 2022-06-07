@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 12:58:45 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/07 00:20:03 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:23:48 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 ssize_t	ft_putchar(char c);
-ssize_t	ft_putstr(char *s);
+ssize_t	ft_putstr(const	char *s);
 ssize_t	ft_putnbr(int n, ssize_t count);
 ssize_t	ft_putunnbr(unsigned int n, ssize_t count);
 ssize_t	ft_puthex(unsigned long long num, char specifier, ssize_t count);
