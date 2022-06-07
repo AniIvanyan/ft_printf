@@ -6,7 +6,7 @@
 /*   By: aivanyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 13:00:55 by aivanyan          #+#    #+#             */
-/*   Updated: 2022/06/07 01:48:12 by aivanyan         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:20:45 by aivanyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_check_format(va_list ap, char format)
 	if (format == 'c')
 		return_value += ft_putchar(va_arg(ap, int));
 	else if (format == 's')
-		return_value += ft_putstr(va_arg(ap, char *));
+		return_value += ft_putstr(va_arg(ap, const char *));
 	else if (format == 'p')
 		return_value += ft_putptr(va_arg(ap, unsigned long long));
 	else if (format == 'd' || format == 'i')
